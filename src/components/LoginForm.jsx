@@ -11,6 +11,11 @@ const LoginForm = ({ setUser, setErrorMessage }) => {
     console.log('logging in with', username, password)
     try {
       const user = await loginService.login({ username, password })
+
+      window.localStorage.setItem(
+        'loggedNoteappUser', JSON.stringify(user)
+      )
+
       notesService.setToken(user.token)
       setUser(user)
       setUsername('')

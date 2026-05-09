@@ -10,7 +10,12 @@ const App = () => {
   const [notes, setNotes] = useState([])
   const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
+    return loggedUserJSON
+      ? JSON.parse(loggedUserJSON)
+      : null
+  })
 
   useEffect(() => {
     noteService
@@ -20,6 +25,13 @@ const App = () => {
         setNotes(initialNotes)
       })
   }, [])
+  
+  useEffect(() => {
+    if (user) {
+      console.log(user)
+      noteService.setToken(user.token)
+    }
+  }, [user])
   
   const notesToShow = showAll ? notes : notes.filter((note) => note.important)
   
