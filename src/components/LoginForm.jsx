@@ -1,4 +1,5 @@
 import loginService from '../services/login'
+import notesService from '../services/notes'
 import { useState } from "react"
 
 const LoginForm = ({ setUser, setErrorMessage }) => {
@@ -10,6 +11,7 @@ const LoginForm = ({ setUser, setErrorMessage }) => {
     console.log('logging in with', username, password)
     try {
       const user = await loginService.login({ username, password })
+      notesService.setToken(user.token)
       setUser(user)
       setUsername('')
       setPassword('')

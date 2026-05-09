@@ -9,7 +9,6 @@ const NoteForm = ({notes, setNotes}) => {
       const noteObject = {
         content: newNote,
         important: Math.random() > 0.5,
-        id: String(notes.length + 1),
       }
   
       noteService
