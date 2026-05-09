@@ -2,16 +2,14 @@ import { useState, useEffect } from 'react'
 import Footer from './components/Footer'
 import Note from './components/Note'
 import Notification from './components/Notification'
+import LoginForm from './components/LoginForm'
 import noteService from './services/notes'
-import loginService from './services/login'
 
 const App = () => {
   const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -65,49 +63,6 @@ const App = () => {
         setNotes(notes.filter(n => n.id !== id))
       })
   }
-
-  const handleLogin = async event => {
-    event.preventDefault()
-    console.log('logging in with', username, password)
-    try {
-      const user = await loginService.login({ username, password })
-      setUser(user)
-      setUsername('')
-      setPassword('')
-    } catch {
-      setErrorMessage('wrong credentials')
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
-    }
-  }
-
-  const loginForm = () => (
-    <form onSubmit={handleLogin}>
-        <div>
-          <label>
-            username
-            <input
-              type="text"
-              value={username}
-              onChange={({ target }) => setUsername(target.value)}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            password
-            <input
-              type="password"
-              value={password}
-              onChange={({ target }) => setPassword(target.value)}
-            />
-          </label>
-        </div>
-        <button type="submit">login</button>
-      </form>
-  )
-
   const noteForm = () => (
     <form onSubmit={addNote}>
       <label htmlFor="noteInput">New note</label>
@@ -122,7 +77,7 @@ const App = () => {
       <Notification message={errorMessage} />
 
       <h2>Login</h2>
-      {!user && loginForm()}
+      {!user && <LoginForm setUser={setUser} setErrorMessage={setErrorMessage}/>}
       {user && (
         <div>
           <p>{user.name} logged in</p>
