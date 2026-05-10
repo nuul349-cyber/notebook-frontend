@@ -29,6 +29,8 @@ const LoginForm = ({ setUser, setErrorMessage }) => {
 }
 
   return (
+    <>
+    <h2>Login</h2>
     <form onSubmit={handleLogin}>
       <div>
         <label>
@@ -52,6 +54,7 @@ const LoginForm = ({ setUser, setErrorMessage }) => {
       </div>
       <button type="submit">login</button>
     </form>
+    </>
   )
 }
 

@@ -59,16 +59,21 @@ const App = () => {
       })
   }
 
+  const logOut = () => {
+    window.localStorage.removeItem('loggedNoteappUser')
+    setUser(null)
+  }
+
   return (
     <div>
       <h1>Notes app</h1>
       <Notification message={errorMessage} />
 
-      <h2>Login</h2>
       {!user && <LoginForm setUser={setUser} setErrorMessage={setErrorMessage}/>}
       {user && (
         <div>
-          <p>{user.name} logged in</p>
+          <p>logged in as: {user.name} </p>
+          <button onClick={logOut}>Log out</button>
           <NoteForm notes={notes} setNotes={setNotes} />
         </div>
       )}
