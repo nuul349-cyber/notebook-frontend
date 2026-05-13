@@ -5,6 +5,7 @@ import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import NoteForm from './components/NoteForm'
 import noteService from './services/notes'
+import Toggleable from './components/Toggleable'
 
 const App = () => {
   const [notes, setNotes] = useState([])
@@ -69,7 +70,10 @@ const App = () => {
       <h1>Notes app</h1>
       <Notification message={errorMessage} />
 
-      {!user && <LoginForm setUser={setUser} setErrorMessage={setErrorMessage}/>}
+      {!user && 
+        <Toggleable buttonLabel='login'>
+          <LoginForm setUser={setUser} setErrorMessage={setErrorMessage}/>
+        </Toggleable>}
       {user && (
         <div>
           <p>logged in as: {user.name} </p>
