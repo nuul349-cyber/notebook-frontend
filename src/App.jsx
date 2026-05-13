@@ -60,25 +60,40 @@ const App = () => {
       })
   }
 
+  const createNote = async (noteObject) => {
+    const returnedNote = await noteService.create(noteObject)
+        console.log(returnedNote);
+        setNotes(notes.concat(returnedNote))
+  }
+
   const logOut = () => {
     window.localStorage.removeItem('loggedNoteappUser')
     setUser(null)
   }
+
+  const loginForm = () => (
+    <Toggleable buttonLabel='log in'>
+      <LoginForm setUser={setUser} setErrorMessage={setErrorMessage}/>
+    </Toggleable>
+  )
+
+  const noteForm = () => (
+    <Toggleable buttonLabel='new note'>
+      <NoteForm createNote={createNote} />
+    </Toggleable>
+  )
 
   return (
     <div>
       <h1>Notes app</h1>
       <Notification message={errorMessage} />
 
-      {!user && 
-        <Toggleable buttonLabel='login'>
-          <LoginForm setUser={setUser} setErrorMessage={setErrorMessage}/>
-        </Toggleable>}
+      {!user && loginForm()}
       {user && (
         <div>
           <p>logged in as: {user.name} </p>
           <button onClick={logOut}>Log out</button>
-          <NoteForm notes={notes} setNotes={setNotes} />
+          {noteForm()}
         </div>
       )}
 
