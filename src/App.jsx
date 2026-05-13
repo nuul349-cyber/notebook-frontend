@@ -80,7 +80,7 @@ const App = () => {
 
   const noteFormRef = useRef()
   const noteForm = () => (
-    <Toggleable buttonLabel='new note' ref={noteFormRef}>
+    <Toggleable buttonLabel='new note' someRef={noteFormRef}>
       <NoteForm createNote={createNote} />
     </Toggleable>
   )
