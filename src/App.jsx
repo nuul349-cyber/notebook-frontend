@@ -22,20 +22,20 @@ const App = () => {
     noteService
       .getAll()
       .then(initialNotes => {
-        console.log(initialNotes)
+        console.log('useEffect:initialNotes: ',initialNotes)
         setNotes(initialNotes)
       })
   }, [])
-  
+
   useEffect(() => {
     if (user) {
-      console.log(user)
+      console.log('useEffect:user: ',user)
       noteService.setToken(user.token)
     }
   }, [user])
-  
+
   const notesToShow = showAll ? notes : notes.filter((note) => note.important)
-  
+
   const toggleImportanceOf = (id) => {
     const note = notes.find(n => n.id === id)
     const changedNote = { ...note, important: !note.important }
@@ -46,8 +46,8 @@ const App = () => {
         setNotes(notes.map(note => note.id === id ? returnedNote : note))
       })
       .catch(error => {
-        console.log(error);
-        
+        console.log('toggleImportanceOf:error: ',error)
+
         setErrorMessage(
           `Note '${note.content}' was already removed from server`
         )
@@ -63,7 +63,7 @@ const App = () => {
   const createNote = async (noteObject) => {
     noteFormRef.current.toggleVisibility()
     const returnedNote = await noteService.create(noteObject)
-    console.log(returnedNote);
+    console.log('createNote:returnedNote:',returnedNote)
     setNotes(notes.concat(returnedNote))
   }
 
@@ -106,9 +106,9 @@ const App = () => {
       </div>
       <ul>
         {notesToShow.map((note) => (
-          <Note 
-            key={note.id} 
-            note={note} 
+          <Note
+            key={note.id}
+            note={note}
             toggleImportance={() => toggleImportanceOf(note.id)} />
         ))}
       </ul>
