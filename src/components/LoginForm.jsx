@@ -1,6 +1,6 @@
 import loginService from '../services/login'
 import notesService from '../services/notes'
-import { useState } from "react"
+import { useState } from 'react'
 
 const LoginForm = ({ setUser, setErrorMessage }) => {
   const [username, setUsername] = useState('')
@@ -26,34 +26,34 @@ const LoginForm = ({ setUser, setErrorMessage }) => {
         setErrorMessage(null)
       }, 5000)
     }
-}
+  }
 
   return (
     <>
-    <h2>Login</h2>
-    <form onSubmit={handleLogin}>
-      <div>
-        <label>
+      <h2>Login</h2>
+      <form onSubmit={handleLogin}>
+        <div>
+          <label>
           username
-          <input
-            type="text"
-            value={username}
-            onChange={({ target }) => setUsername(target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label>
+            <input
+              type="text"
+              value={username}
+              onChange={({ target }) => setUsername(target.value)}
+            />
+          </label>
+        </div>
+        <div>
+          <label>
           password
-          <input
-            type="password"
-            value={password}
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </label>
-      </div>
-      <button type="submit">login</button>
-    </form>
+            <input
+              type="password"
+              value={password}
+              onChange={({ target }) => setPassword(target.value)}
+            />
+          </label>
+        </div>
+        <button type="submit">login</button>
+      </form>
     </>
   )
 }
